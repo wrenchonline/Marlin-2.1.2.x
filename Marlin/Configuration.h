@@ -158,12 +158,12 @@
  *          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
-#define X_DRIVER_TYPE  TMC2209
-#define Y_DRIVER_TYPE  TMC2209
-#define Z_DRIVER_TYPE  TMC2209
+#define X_DRIVER_TYPE  TMC2209_STANDALONE
+#define Y_DRIVER_TYPE  TMC2209_STANDALONE
+#define Z_DRIVER_TYPE  TMC2209_STANDALONE
 //#define X2_DRIVER_TYPE A4988
 //#define Y2_DRIVER_TYPE A4988
-#define Z2_DRIVER_TYPE TMC2209
+#define Z2_DRIVER_TYPE TMC2209_STANDALONE
 //#define Z3_DRIVER_TYPE A4988
 //#define Z4_DRIVER_TYPE A4988
 //#define I_DRIVER_TYPE  A4988
@@ -172,7 +172,8 @@
 //#define U_DRIVER_TYPE  A4988
 //#define V_DRIVER_TYPE  A4988
 //#define W_DRIVER_TYPE  A4988
-#define E0_DRIVER_TYPE TMC2209
+#define E0_DRIVER_TYPE TMC2209_STANDALONE
+
 //#define E1_DRIVER_TYPE A4988
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
@@ -1168,7 +1169,18 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }
+///
+/*
+result = (360 / step_angle_val * subdivisions_val) / (pitch_diameter_val * teeth_val);
+step_angle_val = 1.8;  % 电机步距角
+subdivisions_val = 32; % 细分数
+pitch_diameter_val = 2; % 同步带齿距
+teeth_val = 20;        % 齿数
+
+80大概是16细分数
+ (360 / step_angle_val * subdivisions_val) / T8丝杆导路程
+*/
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 408 }
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
@@ -1641,7 +1653,7 @@
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR false
-#define INVERT_Y_DIR true
+#define INVERT_Y_DIR false
 #define INVERT_Z_DIR false
 //#define INVERT_I_DIR false
 //#define INVERT_J_DIR false
@@ -1694,8 +1706,8 @@
 // @section geometry
 
 // The size of the printable area
-#define X_BED_SIZE 200
-#define Y_BED_SIZE 200
+#define X_BED_SIZE 220
+#define Y_BED_SIZE 220
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -2215,8 +2227,8 @@
 // Preheat Constants - Up to 10 are supported without changes
 //
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 180
-#define PREHEAT_1_TEMP_BED     70
+#define PREHEAT_1_TEMP_HOTEND 190
+#define PREHEAT_1_TEMP_BED     60
 #define PREHEAT_1_TEMP_CHAMBER 35
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
@@ -2422,7 +2434,7 @@
  *
  * :{ 'en':'English', 'an':'Aragonese', 'bg':'Bulgarian', 'ca':'Catalan', 'cz':'Czech', 'da':'Danish', 'de':'German', 'el':'Greek (Greece)', 'el_CY':'Greek (Cyprus)', 'es':'Spanish', 'eu':'Basque-Euskera', 'fi':'Finnish', 'fr':'French', 'gl':'Galician', 'hr':'Croatian', 'hu':'Hungarian', 'it':'Italian', 'jp_kana':'Japanese', 'ko_KR':'Korean (South Korea)', 'nl':'Dutch', 'pl':'Polish', 'pt':'Portuguese', 'pt_br':'Portuguese (Brazilian)', 'ro':'Romanian', 'ru':'Russian', 'sk':'Slovak', 'sv':'Swedish', 'tr':'Turkish', 'uk':'Ukrainian', 'vi':'Vietnamese', 'zh_CN':'Chinese (Simplified)', 'zh_TW':'Chinese (Traditional)' }
  */
-#define LCD_LANGUAGE en
+#define LCD_LANGUAGE zh_CN
 
 /**
  * LCD Character Set
@@ -3291,16 +3303,16 @@
 #endif
 
 // Support for Adafruit NeoPixel LED driver
-//#define NEOPIXEL_LED
+#define NEOPIXEL_LED
 #if ENABLED(NEOPIXEL_LED)
-  #define NEOPIXEL_TYPE          NEO_GRBW // NEO_GRBW, NEO_RGBW, NEO_GRB, NEO_RBG, etc.
+  #define NEOPIXEL_TYPE          NEO_RGB // NEO_GRBW, NEO_RGBW, NEO_GRB, NEO_RBG, etc.
                                           // See https://github.com/adafruit/Adafruit_NeoPixel/blob/master/Adafruit_NeoPixel.h
   //#define NEOPIXEL_PIN                4 // LED driving pin
   //#define NEOPIXEL2_TYPE  NEOPIXEL_TYPE
   //#define NEOPIXEL2_PIN               5
   #define NEOPIXEL_PIXELS              30 // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
   #define NEOPIXEL_IS_SEQUENTIAL          // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
-  #define NEOPIXEL_BRIGHTNESS         127 // Initial brightness (0-255)
+  #define NEOPIXEL_BRIGHTNESS         255 // Initial brightness (0-255)
   //#define NEOPIXEL_STARTUP_TEST         // Cycle through colors at startup
 
   // Support for second Adafruit NeoPixel LED driver controlled with M150 S1 ...
@@ -3317,8 +3329,8 @@
   // Use some of the NeoPixel LEDs for static (background) lighting
   //#define NEOPIXEL_BKGD_INDEX_FIRST   0 // Index of the first background LED
   //#define NEOPIXEL_BKGD_INDEX_LAST    5 // Index of the last background LED
-  //#define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 }  // R, G, B, W
-  //#define NEOPIXEL_BKGD_ALWAYS_ON       // Keep the backlight on when other NeoPixels are off
+  #define NEOPIXEL_BKGD_COLOR { 255, 128, 0, 0 }  // R, G, B, W
+  #define NEOPIXEL_BKGD_ALWAYS_ON       // Keep the backlight on when other NeoPixels are off
 #endif
 
 /**
