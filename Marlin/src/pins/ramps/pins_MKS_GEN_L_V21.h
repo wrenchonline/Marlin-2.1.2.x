@@ -78,6 +78,11 @@
   #define SERVO3_PIN                          32
 #endif
 
+
+#ifndef FAN_PIN
+  #define FAN_PIN                          7
+#endif
+
 // #ifndef E1_SERIAL_TX_PIN
 //   #define E1_SERIAL_TX_PIN                    20
 // #endif
