@@ -196,6 +196,23 @@
   #define Z2_CS_PIN                           44
 #endif
 
+
+
+#ifndef Z3_STEP_PIN
+  #define Z3_STEP_PIN                         50
+#endif
+#ifndef Z3_DIR_PIN
+  #define Z3_DIR_PIN                          52 
+#endif
+#ifndef Z3_ENABLE_PIN
+  #define Z3_ENABLE_PIN                       49
+#endif
+// #ifndef Z3_CS_PIN
+//   #define Z3_CS_PIN                           44
+// #endif
+
+
+
 // #ifndef E1_STEP_PIN
 //   #define E1_STEP_PIN                         36
 // #endif

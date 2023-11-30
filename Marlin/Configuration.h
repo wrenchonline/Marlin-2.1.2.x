@@ -164,7 +164,7 @@
 //#define X2_DRIVER_TYPE A4988
 //#define Y2_DRIVER_TYPE A4988
 #define Z2_DRIVER_TYPE A4988
-//#define Z3_DRIVER_TYPE A4988
+#define Z3_DRIVER_TYPE TMC2209_STANDALONE
 //#define Z4_DRIVER_TYPE A4988
 //#define I_DRIVER_TYPE  A4988
 //#define J_DRIVER_TYPE  A4988
@@ -1180,7 +1180,7 @@ teeth_val = 20;        % 齿数
 80大概是16细分数
  (360 / step_angle_val * subdivisions_val) / T8丝杆导路程
 */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 706}
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 706.8}
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
@@ -2029,7 +2029,7 @@ teeth_val = 20;        % 齿数
  * Add a bed leveling sub-menu for ABL or MBL.
  * Include a guided procedure if manual probing is enabled.
  */
-#define LCD_BED_LEVELING
+//#define LCD_BED_LEVELING
 
 #if ENABLED(LCD_BED_LEVELING)
   #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
@@ -2473,7 +2473,7 @@ teeth_val = 20;        % 齿数
  * SD Card support is disabled by default. If your controller has an SD slot,
  * you must uncomment the following option or it won't work.
  */
-#define SDSUPPORT
+// #define SDSUPPORT
 
 /**
  * SD CARD: ENABLE CRC
@@ -2820,7 +2820,7 @@ teeth_val = 20;        % 齿数
 //
 // MKS MINI12864 V3 is an alias for FYSETC_MINI_12864_2_1. Type A/B. NeoPixel RGB Backlight.
 //
-#define MKS_MINI_12864_V3
+//#define MKS_MINI_12864_V3
 
 //
 // MKS LCD12864A/B with graphic controller and SD support. Follows MKS_MINI_12864 pinout.
@@ -3303,7 +3303,7 @@ teeth_val = 20;        % 齿数
 #endif
 
 // Support for Adafruit NeoPixel LED driver
-#define NEOPIXEL_LED
+//#define NEOPIXEL_LED
 #if ENABLED(NEOPIXEL_LED)
   #define NEOPIXEL_TYPE          NEO_RGB // NEO_GRBW, NEO_RGBW, NEO_GRB, NEO_RBG, etc.
                                           // See https://github.com/adafruit/Adafruit_NeoPixel/blob/master/Adafruit_NeoPixel.h
